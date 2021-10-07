@@ -8,7 +8,7 @@ import java.util.BitSet;
  * @author: kermit
  * @date: 2020/7/31/22:10
  */
-public class App_5 {
+public class BitSetApp {
 
   public static void main(String[] args) {
 
