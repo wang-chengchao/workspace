@@ -1,0 +1,27 @@
+package ${cfg.apiPackage}.model.form;
+import com.pig4cloud.pig.common.core.util.BaseQueryForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
+
+/**
+ * @Author : ${author}
+ * @Date : Create in ${date}
+ * @Description :   ${entity}查询from对象
+ * @Modified :
+ */
+@ApiModel("${entity}查询表单")
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${entity}QueryForm extends BaseQueryForm{
+#foreach($field in ${table.fields})
+    #if(${field.propertyName}!="id"&&${field.propertyName}!="createTime"&&${field.propertyName}!="createBy"&&${field.propertyName}!="updateTime"&&${field.propertyName}!="updateBy"&&${field.propertyName}!="delFlag")
+
+    @ApiModelProperty(value = "${field.comment}")
+    private ${field.propertyType} ${field.propertyName};
+    #end
+#end
+}

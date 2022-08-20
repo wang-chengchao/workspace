@@ -1,0 +1,67 @@
+package ${package.ServiceImpl};
+
+import cn.hutool.core.bean.BeanUtil;
+import com.pig4cloud.pig.common.core.util.ListBeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${cfg.apiPackage}.model.form.${entity}QueryForm;
+import ${cfg.apiPackage}.model.form.${entity}Form;
+import ${cfg.apiPackage}.model.vo.${entity}Vo;
+import ${package.Entity}.${entity}Entity;
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+
+
+import java.util.List;
+/**
+ * @Author : ${author}
+ * @Date : Create in ${date}
+ * @Description :  ${entity}服务实现类
+ * @Modified :
+ */
+@RequiredArgsConstructor
+@Service
+@Transactional
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}Entity> implements ${table.serviceName} {
+
+    private final ${table.mapperName} ${table.entityPath}Mapper;
+
+    @Override
+    public Long saveForm(${entity}Form saveForm) {
+        ${entity}Entity entity = BeanUtil.copyProperties(saveForm, ${entity}Entity.class);
+        this.save(entity);
+        return entity.getId();
+    }
+
+    @Override
+    public Long updateForm(Long id, ${entity}Form saveForm) {
+        ${entity}Entity entity = this.getById(id);
+        BeanUtil.copyProperties(saveForm, entity);
+        entity.updateById();
+        return id;
+    }
+
+    @Override
+    public ${entity}Vo queryById(Long id) {
+        ${entity}Entity entity = this.getById(id);
+        if (entity == null) return null;
+        return BeanUtil.copyProperties(entity, ${entity}Vo.class);
+    }
+
+    @Override
+    public IPage<${entity}Vo> selectPage(${entity}QueryForm queryForm) {
+        QueryWrapper<${entity}Entity> queryWrapper = new QueryWrapper();
+        //这里注入查询条件
+        IPage<${entity}Entity> entityIPage = ${table.entityPath}Mapper.selectPage(new Page<${entity}Entity>(queryForm.getCurrentPage(),queryForm.getPageSize()), queryWrapper);
+        return ListBeanUtil.copyPage(entityIPage, ${entity}Vo.class);
+    }
+
+}
+

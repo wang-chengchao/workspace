@@ -1,0 +1,28 @@
+package ${package.Service};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import ${cfg.apiPackage}.model.form.${entity}QueryForm;
+import ${cfg.apiPackage}.model.form.${entity}Form;
+import ${cfg.apiPackage}.model.vo.${entity}Vo;
+import ${package.Entity}.${entity}Entity;
+import ${superServiceClassPackage};
+import java.util.List;
+
+/**
+ * @Author : ${author}
+ * @Date : Create in ${date}
+ * @Description : ${entity}服务类接口
+ * @Modified :
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}Entity> {
+
+    Long saveForm(${entity}Form saveForm);
+
+    Long updateForm(Long id, ${entity}Form saveForm);
+
+    ${entity}Vo queryById(Long id);
+
+    IPage<${entity}Vo> selectPage(${entity}QueryForm queryForm);
+
+}

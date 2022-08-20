@@ -1,0 +1,28 @@
+package ${cfg.apiPackage}.model.vo;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+/**
+ * @Author : ${author}
+ * @Date : Create in ${date}
+ * @Description : $!{table.comment}VO对象
+ * @Modified :
+ */
+@Data
+public class ${entity}Vo implements Serializable{
+    private static final long serialVersionUID = 1L;
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+
+    @ApiModelProperty(value = "${field.comment}")
+    #if(${field.propertyName}=="id")
+    private Long ${field.propertyName};
+    #else
+    private ${field.propertyType} ${field.propertyName};
+    #end
+#end
+
+}
