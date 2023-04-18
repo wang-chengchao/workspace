@@ -1,0 +1,44 @@
+server.port: 8888
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+logging:
+  level:
+    root: info
+    com.example: debug
+
+
+spring.datasource.url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8
+spring.datasource.username: root
+spring.datasource.password: 123456
+
+
+#canal配置
+
+spring:
+  canal:
+    instances:
+      example:                  # 拉取 example 目标的数据
+        host: l27.0.0.1    # canal 所在机器的ip
+        port: 11111             # canal 默认暴露端口
+        user-name: canal        # canal 用户名
+        password: canal         # canal 密码
+        batch-size: 600         # canal 每次拉取的数据条数
+        retry-count: 5          # 重试次数,如果重试5次后,仍无法连接,则断开
+        cluster-enabled: false  # 是否开启集群
+        zookeeper-address:      # zookeeper 地址(开启集群的情况下生效), 例: 192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181
+        acquire-interval: 1000  # 未拉取到消息情况下,获取消息的时间间隔毫秒值
+        subscribe: .*      # 默认情况下拉取所有库、所有表
+prod:
+  example: example
+  database: test
